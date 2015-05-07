@@ -29,10 +29,10 @@ Ok that was probably a bad explanation, here's an (irl) example for clarity:
 
 3. On your server, download server.go and modify these lines near the top of the file
 
-```go
-const port = "9002"
-const target = "123.44.32.45:22"
-```
+  ```go
+  const port = "9002"
+  const target = "123.44.32.45:22"
+  ```
 
   to the port the tunnel will be running on (must match proxyDomain port specified in the client), and the target
   server's IP and port that you would like to channel TCP traffic to. Can be a lookback like `127.0.0.1:22`. This
