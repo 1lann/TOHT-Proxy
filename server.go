@@ -81,19 +81,19 @@ func handleConnection(clientConn net.Conn) {
 
 	line, err := reader.ReadString('\n')
 	if err != nil {
-		log.Println("Failed to read first line")
+		log.Println("Failed to read first line", err)
 		return
 	}
-	if line == "GET /listen HTTP/1.0\r\n" {
+	if line == "GET /listen HTTP/1.1\r\n" {
 		// This is for LISTENING
 		resolvedId := ""
 		for line, err = reader.ReadString('\n'); true; line, err = reader.ReadString('\n') {
 			if err != nil {
-				log.Println("Failed to read following lines")
+				log.Println("Failed to read following lines", err)
 				return
 			}
 
-			if len(line) > 10 && line[:10] == "ClientId: " {
+			if len(line) > 10 && line[:10] == "Clientid: " {
 				resolvedId = line[10:30]
 			}
 
@@ -103,7 +103,7 @@ func handleConnection(clientConn net.Conn) {
 		}
 
 		if len(resolvedId) > 1 {
-			fmt.Fprintf(clientConn, "HTTP/1.0 200 OK\r\n")
+			fmt.Fprintf(clientConn, "HTTP/1.1 200 OK\r\n")
 			fmt.Fprintf(clientConn, "Content-Type: application/octet-stream\r\n")
 			fmt.Fprintf(clientConn, "Connection: keep-alive\r\n")
 			fmt.Fprintf(clientConn, "Content-Length: 12345789000\r\n\r\n")
@@ -131,7 +131,7 @@ func handleConnection(clientConn net.Conn) {
 			log.Println("Failed to find client id!")
 		}
 
-	} else if line == "POST /transmit HTTP/1.0\r\n" {
+	} else if line == "POST /transmit HTTP/1.1\r\n" {
 		// This is for TRANSMITTING
 		resolvedId := ""
 		for line, err = reader.ReadString('\n'); true; line, err = reader.ReadString('\n') {
@@ -140,7 +140,7 @@ func handleConnection(clientConn net.Conn) {
 				return
 			}
 
-			if len(line) > 10 && line[:10] == "ClientId: " {
+			if len(line) > 10 && line[:10] == "Clientid: " {
 				resolvedId = line[10:30]
 			}
 
@@ -174,7 +174,7 @@ func handleConnection(clientConn net.Conn) {
 		}
 
 	} else {
-		fmt.Fprintf(clientConn, "HTTP/1.0 404 Not found\r\n")
+		fmt.Fprintf(clientConn, "HTTP/1.1 404 Not found\r\n")
 		fmt.Fprintf(clientConn, "Content-Type: text/plain\r\n")
 		fmt.Fprintf(clientConn, "Content-Length: 8\r\n\r\n")
 		fmt.Fprintf(clientConn, "u wot m9")

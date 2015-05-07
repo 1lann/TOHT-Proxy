@@ -45,11 +45,11 @@ func handleConnection(clientConn net.Conn) {
 	wait := make(chan bool)
 
 	go func() {
-		fmt.Fprintf(serverSend, "POST /transmit HTTP/1.0\r\n")
+		fmt.Fprintf(serverSend, "POST /transmit HTTP/1.1\r\n")
 		fmt.Fprintf(serverSend, "Host: "+proxyDomain+"\r\n")
 		fmt.Fprintf(serverSend, "Accept: */*\r\n")
 		fmt.Fprintf(serverSend, "Connection: keep-alive\r\n")
-		fmt.Fprintf(serverSend, "ClientId: "+clientId+"\r\n")
+		fmt.Fprintf(serverSend, "Clientid: "+clientId+"\r\n")
 		fmt.Fprintf(serverSend,
 			"Content-Type: multipart/form-data; boundary=----------SWAG------BOUNDARY----\r\n")
 		// fmt.Fprintf(serverSend, "Transfer-Encoding: chunked\r\n")
@@ -65,10 +65,10 @@ func handleConnection(clientConn net.Conn) {
 	}()
 
 	go func() {
-		fmt.Fprintf(serverListen, "GET /listen HTTP/1.0\r\n")
+		fmt.Fprintf(serverListen, "GET /listen HTTP/1.1\r\n")
 		fmt.Fprintf(serverListen, "Host: "+proxyDomain+"\r\n")
 		fmt.Fprintf(serverListen, "Accept: */*\r\n")
-		fmt.Fprintf(serverListen, "ClientId: "+clientId+"\r\n")
+		fmt.Fprintf(serverListen, "Clientid: "+clientId+"\r\n")
 		fmt.Fprintf(serverListen, "Connection: keep-alive\r\n")
 		fmt.Fprintf(serverListen, "\r\n")
 
@@ -82,7 +82,7 @@ func handleConnection(clientConn net.Conn) {
 				return
 			}
 
-			if line == "HTTP/1.0 200 OK\r\n" {
+			if line == "HTTP/1.1 200 OK\r\n" {
 				success = true
 			}
 
