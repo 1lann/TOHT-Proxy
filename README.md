@@ -17,27 +17,28 @@ Ok that was probably a bad explanation, here's an (irl) example for clarity:
 
 ## How do I use it?
 1. Install go on your client machine and server
-
 2. On your client, download client.go and modify these lines near the top of the file
-```go
-const proxyDomain = "127.0.0.1:9002"
-const port = "8080"
-```
-to the domain and port of the server that will be running server.go, and the port you would like to use
-as the tunnel on the client.
+
+  ```go
+  const proxyDomain = "127.0.0.1:9002"
+  const port = "8080"
+  ```
+  
+  to the domain and port of the server that will be running server.go, and the port you would like to use
+  as the tunnel on the client.
 
 3. On your server, download server.go and modify these lines near the top of the file
+
 ```go
 const port = "9002"
 const target = "123.44.32.45:22"
 ```
-to the port the tunnel will be running on (must match proxyDomain port specified in the client), and the target
-server's IP and port that you would like to channel TCP traffic to. Can be a lookback like `127.0.0.1:22`. This
-will usually be your IP:SSH port or OpenVPN port. Note that this proxy only supports connections to a single port,
-which is why you should use SSH or OpenVPN to tunnel all of your traffic.
 
+  to the port the tunnel will be running on (must match proxyDomain port specified in the client), and the target
+  server's IP and port that you would like to channel TCP traffic to. Can be a lookback like `127.0.0.1:22`. This
+  will usually be your IP:SSH port or OpenVPN port. Note that this proxy only supports connections to a single port,
+  which is why you should use SSH or OpenVPN to tunnel all of your traffic.
 4. Run client.go, and server.go
-
 5. When setting up OpenVPN, change the TCP IP to 127.0.0.1:PORT
   OR when setting up SSH, use `ssh username@127.0.0.1 -p PORT` (PORT being defined under client.go's `const port`)
 
