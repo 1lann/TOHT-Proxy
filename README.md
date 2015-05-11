@@ -40,7 +40,7 @@ Ok that was probably a bad explanation, here's an (irl) example for clarity:
   which is why you should use SSH or OpenVPN to tunnel all of your traffic.
 4. Run client.go, and server.go
 5. When setting up OpenVPN, change the TCP IP to 127.0.0.1:PORT
-  OR when setting up SSH, use `ssh username@127.0.0.1 -p PORT` (PORT being defined under client.go's `const port`)
+  **or** when setting up SSH, use `ssh username@127.0.0.1 -p PORT` (PORT being defined under client.go's `const port`)
 
 ## Limitations
 - Can only tunnel to 1 port on a remote server.
