@@ -1,5 +1,5 @@
 # TOHT-Proxy
-TCP over HTTP proxy. Tunnels TCP traffic over the HTTP protocol to bypass corporate/school firewalls. To be used with SSH or OpenVPN to form a tunnel for all your traffic. [WIP NOT FULLY TESTED]
+TCP over HTTP proxy. Tunnels TCP traffic over the HTTP protocol to bypass corporate/school firewalls. To be used with SSH or OpenVPN to form a tunnel for all your traffic.
 
 Proudly written in Go (It's cross platform!)
 
@@ -13,7 +13,7 @@ Ok that was probably a bad explanation, here's an (irl) example for clarity:
 - I can't access my personal server because the whitelisting firewall at my school is blocking it.
 - I can however access Heroku servers.
 - I can set up the server software on Heroku.
-- This will form a tunnel from my computer, to heroku, then to my personal server.
+- This will form a tunnel from my computer, to Heroku, then to my personal server.
 
 ## How do I use it?
 1. Install go on your client machine and server
@@ -44,9 +44,8 @@ Ok that was probably a bad explanation, here's an (irl) example for clarity:
 
 ## Limitations
 - Can only tunnel to 1 port on a remote server.
-- May be super buggy.
-- Not guranteed to work (I will try my best to obfuscate it!), also untested against
-my school's network.
+- Can be quite unreliable as there are many points of failure and connections drop somewhat frequently.
+- Can be very slow to tunnel through multiple servers.
 
 ## If you are staff member from my school
 I intend no harm and I will not mention this to other students. I just wanted to work on a fun challenge and
